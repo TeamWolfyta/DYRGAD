@@ -1,5 +1,7 @@
 use serenity::{
-  all::{ActivityData, Context, EventHandler as Handler, OnlineStatus, Ready},
+  all::{
+    ActivityData, Context, EventHandler as Handler, GuildChannel, Message, OnlineStatus, Ready,
+  },
   async_trait,
 };
 
@@ -14,5 +16,22 @@ impl Handler for EventHandler {
     );
 
     println!("Bot is now logged in as {}", ready.user.name);
+  }
+
+  async fn message(&self, ctx: Context, new_message: Message) {
+    if new_message.content.contains("No such file or directory") {
+      if let Err(error) = new_message
+        .reply(&ctx.http, "Did you run `git add .`?")
+        .await
+      {
+        println!("Error sending message: {:?}", error);
+      }
+    }
+  }
+
+  async fn thread_create(&self, ctx: Context, thread: GuildChannel) {
+    if let Err(error) = thread.id.join_thread(&ctx.http).await {
+      println!("Error joining thread: {:?}", error);
+    }
   }
 }
