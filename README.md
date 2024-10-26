@@ -1,3 +1,3 @@
-# Aisha
+# DYRGAD (der-gad)
 
-> TODO
+> Did you run "git add ."?

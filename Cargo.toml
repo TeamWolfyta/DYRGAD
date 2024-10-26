@@ -4,3 +4,9 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
+dotenv = "0.15.0"
+tokio = { features = ["macros", "rt-multi-thread"], version = "1" }
+
+[dependencies.serenity]
+branch = "next"
+git = "https://github.com/serenity-rs/serenity"
